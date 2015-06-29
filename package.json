@@ -1,6 +1,6 @@
 {
   "name": "connect-nunjucks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Nunjucks middleware for connect / express",
   "main": "index.js",
   "scripts": {
