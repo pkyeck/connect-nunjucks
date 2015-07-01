@@ -102,7 +102,7 @@ module.exports = function(opt) {
         baseDir: baseDir,
         modules: modules,
         ext: ext,
-        currentPath: req.url
+        currentPath: reqPath
       }), {
         watch: false,
         // TODO add configurable tags
