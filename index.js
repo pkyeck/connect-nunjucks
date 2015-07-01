@@ -41,16 +41,19 @@ CustomFileLoader.prototype.getSource = function(name) {
   var original = name;
   var currentPath = path.join(this.baseDir, this.currentPath);
 
+  // remove current path from name (if present)
   if (name.indexOf(currentPath) === 0) {
     name = name.substr(currentPath.length + 1);
   }
 
+  // distinguish between absolute and relative names
   if (name.charAt(0) === '/') {
     name = path.join(this.baseDir, name);
   } else {
     name = path.join(currentPath, name);
   }
 
+  // add missing extension
   var ext = path.extname(name);
   if (ext === '') {
     name += this.ext;
@@ -102,6 +105,7 @@ module.exports = function(opt) {
         currentPath: req.url
       }), {
         watch: false,
+        // TODO add configurable tags
         tags: {
           blockStart: '<%',
           blockEnd: '%>',
@@ -119,9 +123,11 @@ module.exports = function(opt) {
           log(err);
           log(err.stack);
           res.writeHead(500);
+
           if (debug === true || debug === 'browser') {
             res.write(err.stack);
           }
+
           res.end();
           return;
         }
