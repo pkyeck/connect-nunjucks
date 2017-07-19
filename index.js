@@ -87,6 +87,14 @@ module.exports = function(opt) {
 
   // allow custom nunjucks filter
   var filters = opt.filters || {};
+  
+  // {
+  //   blockStart: '<%',
+  //   blockEnd: '%>',
+  //   commentStart: '<#',
+  //   commentEnd: '#>'
+  // }
+  var tags = opt.tags || {};
 
   return function(req, res, next) {
     var reqPath = url.parse(req.url).pathname;
@@ -105,13 +113,7 @@ module.exports = function(opt) {
         currentPath: reqPath
       }), {
         watch: false,
-        // TODO add configurable tags
-        tags: {
-          blockStart: '<%',
-          blockEnd: '%>',
-          commentStart: '<#',
-          commentEnd: '#>'
-        }
+        tags
       });
 
       for (var filterName in filters) {

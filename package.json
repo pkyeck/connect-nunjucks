@@ -1,6 +1,6 @@
 {
   "name": "connect-nunjucks",
-  "version": "1.0.2",
+  "version": "3.0.0-alpha.1",
   "description": "Nunjucks middleware for connect / express",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/pkyeck/connect-nunjucks",
   "dependencies": {
-    "lodash": "^3.9.3",
-    "nunjucks": "^1.3.4"
+    "lodash": "^4.17.4",
+    "nunjucks": "^3.0.1"
   }
 }
