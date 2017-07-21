@@ -5,17 +5,7 @@ var path = require('path');
 var fs = require('fs');
 var nunjucks = require('nunjucks');
 var _ = require('lodash');
-
-//
-//
-//
-
-var debug = false;
-var log = function() {
-  if (debug === true || debug === 'console') {
-    console.log.apply(console, arguments);
-  }
-};
+var debug = require('debug')('nunjucks');
 
 //
 //
@@ -59,7 +49,7 @@ CustomFileLoader.prototype.getSource = function(name) {
     name += this.ext;
   }
 
-  log('get source', original, name);
+  debug('get source', original, name);
 
   return {
     src: fs.readFileSync(name).toString(),
@@ -72,11 +62,7 @@ CustomFileLoader.prototype.getSource = function(name) {
 //
 module.exports = function(opt) {
   opt = opt || {};
-  debug = opt.debug || false;
-
-  if ([true, 'console', 'browser'].indexOf(debug) === -1) {
-    debug = false;
-  }
+  var debugError = opt.debug || false;
 
   var ext = opt.ext || '.html';
   var context = opt.context || {};
@@ -122,11 +108,11 @@ module.exports = function(opt) {
 
       env.render(pathname, context, function(err, result) {
         if (err) {
-          log(err);
-          log(err.stack);
+          debug(err);
+          debug(err.stack);
           res.writeHead(500);
 
-          if (debug === true || debug === 'browser') {
+          if (debugError === true || debugError === 'browser') {
             res.write(err.stack);
           }
 
